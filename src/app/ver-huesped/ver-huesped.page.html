@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Habitación {{huesped.habitacion}}</ion-title>
+    <ion-tab-button slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-tab-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <h2>Nombre: {{huesped.nombre}}</h2>
+        <h2>Teléfono: {{huesped.telefono}}</h2>
+        <h2>Fecha de ingreso: {{huesped.fecha_ingreso}}</h2>
+        <h2>Fecha de salida: {{huesped.fecha_salida}}</h2>
+        <h3>Token: {{huesped.token}}</h3>
+        <h3>Habitación: {{huesped.habitacion}}</h3>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

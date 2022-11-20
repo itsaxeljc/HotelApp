@@ -6,7 +6,7 @@ import { AlertController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  // Clase para validar login
+  // Login básico
   public tokens = ['admin'];
 
   constructor(

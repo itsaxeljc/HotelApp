@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar nuevo huésped</ion-title>
+    <ion-tab-button slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-tab-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="myForm">
+      <!-- Nombre -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"> Nombre del huésped </ion-label>
+            <ion-input formControlName="nombre"> </ion-input>
+          </ion-item>
+          <div>
+            <ng-container *ngFor="let item of validationMessages['nombre']">
+              <div
+                class="error-message"
+                *ngIf="
+                (myForm.get('nombre').dirty || myForm.get('nombre').touched) &&
+                myForm.get('nombre').hasError(item.type)"
+              >
+                {{item.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- Teléfono -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">
+              Número telefónico del huésped
+            </ion-label>
+            <ion-input formControlName="telefono"> </ion-input>
+          </ion-item>
+          <div>
+            <ng-container *ngFor="let item of validationMessages['telefono']">
+              <div
+                class="error-message"
+                *ngIf="
+                (myForm.get('telefono').dirty || myForm.get('telefono').touched) &&
+                myForm.get('telefono').hasError(item.type)"
+              >
+                {{item.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- Habitación -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"> Habitación del huésped </ion-label>
+            <ion-select
+              formControlName="habitacion"
+              placeholder="Selecciona una habitación"
+            >
+              <ion-select-option
+                *ngFor="let habitacion of habitaciones"
+                [value]="habitacion"
+                >{{ habitacion }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <div>
+            <ng-container *ngFor="let item of validationMessages['habitacion']">
+              <div
+                class="error-message"
+                *ngIf="
+                (myForm.get('habitacion').dirty || myForm.get('habitacion').touched) &&
+                myForm.get('habitacion').hasError(item.type)"
+              >
+                {{item.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- Calendarios -->
+      <ion-row>
+        <!-- Fecha de ingreso -->
+        <ion-col align-items-center>
+          <div class="calendar-div">
+            <ion-datetime
+              (ionChange)="fechaSeleccionadaIngreso($event)"
+              presentation="date"
+              [min]="diaActual"
+            >
+              <span slot="title">Selecciona la fecha de ingreso</span>
+            </ion-datetime>
+            <!-- Fecha de salida -->
+            <ion-datetime
+              (ionChange)="fechaSeleccionadaSalida($event)"
+              presentation="date"
+              [min]="fechaIngreso"
+            >
+              <span slot="title">Selecciona la fecha de Salida</span>
+            </ion-datetime>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+  <!-- guardar -->
+  <ion-button (click)="guardarHuesped()" class="btn" size="large">
+    <ion-icon slot="start" name="save"></ion-icon>
+    Guardar
+  </ion-button>
+</ion-content>

@@ -17,6 +17,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
   },
+  {
+    path: 'ver-huesped',
+    loadChildren: () => import('./ver-huesped/ver-huesped.module').then( m => m.VerHuespedPageModule)
+  },
+  {
+    path: 'nuevo-huesped',
+    loadChildren: () => import('./nuevo-huesped/nuevo-huesped.module').then( m => m.NuevoHuespedPageModule)
+  },
 ];
 
 @NgModule({

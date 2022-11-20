@@ -12,6 +12,7 @@
                   <ion-item>
                     <ion-input
                       class="custom"
+                      (keyup.enter)="login()"
                       placeholder="Ingresa un token"
                       formControlName="token"
                     >
