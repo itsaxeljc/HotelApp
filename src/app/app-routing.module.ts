@@ -25,6 +25,12 @@ const routes: Routes = [
     path: 'nuevo-huesped',
     loadChildren: () => import('./nuevo-huesped/nuevo-huesped.module').then( m => m.NuevoHuespedPageModule)
   },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  }
+
+
 ];
 
 @NgModule({

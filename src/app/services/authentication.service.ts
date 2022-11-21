@@ -7,18 +7,23 @@ import { AlertController } from '@ionic/angular';
 })
 export class AuthenticationService {
   // Login básico
-  public tokens = ['admin'];
+  public tokens = ['admin','9895257528'];
 
   constructor(
     private router: Router,
     private alertController: AlertController
   ) {}
 
-  async validarToken(token: String) {
+  async validarToken(token: string) {
+    console.log(this.tokens)
     if (token === this.tokens[0]) {
       await this.router.navigate(['/home']);
-    } else {
-      this.presentAlert();
+    } 
+    else if(this.tokens.includes(token)){
+      await this.router.navigate(['/tabs']);
+    }
+    else {
+          this.presentAlert();
     }
   }
 
