@@ -37,7 +37,6 @@ export class HuespedService {
     this.huespedes.map((huesped, i) => {
       if (huesped.habitacion === this.habitaciones[i]) {
         this.habitaciones.splice(i, 1);
-        this.crearToken();
       }
     });
     return this.habitaciones;
