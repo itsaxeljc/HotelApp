@@ -6,6 +6,7 @@ import { Huesped } from '../models/huesped';
 })
 export class HuespedService {
   public huespedes: Huesped[];
+  public habitaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor() {
     this.huespedes = [
@@ -17,11 +18,29 @@ export class HuespedService {
         fecha_salida: '24/11/2022',
         habitacion: 1,
       },
+      {
+        token: 1245257528 + '',
+        nombre: 'Gustavo Cerati',
+        telefono: '3112247431',
+        fecha_ingreso: '25/11/2022',
+        fecha_salida: '28/11/2022',
+        habitacion: 3,
+      },
     ];
   }
 
   public getHuespedes(): Huesped[] {
     return this.huespedes;
+  }
+
+  public getHabitaciones(): number[] {
+    this.huespedes.map((huesped, i) => {
+      if (huesped.habitacion === this.habitaciones[i]) {
+        this.habitaciones.splice(i, 1);
+        this.crearToken();
+      }
+    });
+    return this.habitaciones;
   }
 
   public crearToken(): string {
