@@ -31,7 +31,7 @@ export class NuevoHuespedPage implements OnInit {
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -104,21 +104,30 @@ export class NuevoHuespedPage implements OnInit {
     if (this.myForm.valid) {
       if (this.fechaIngreso !== undefined) {
         if (this.fechaSalida !== undefined) {
-          this.token = this.huespedService.crearToken();
-          this.nuevoHuesped = {
-            nombre: this.myForm.get('nombre').value,
-            telefono: this.myForm.get('telefono').value,
-            habitacion: this.myForm.get('habitacion').value,
-            fecha_ingreso: this.fechaIngreso,
-            fecha_salida: this.fechaSalida,
-            token: this.token,
-          };
-          this.huespedService.nuevoHuesped(this.nuevoHuesped);
-          this.myForm.reset();
-          this.presentAlert(
-            'Se guardó el nuevo huésped',
-            'Token generado: ' + this.token
-          );
+          if (this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida)) {
+            if (this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value)) {
+              this.token = this.huespedService.crearToken();
+              this.nuevoHuesped = {
+                nombre: this.myForm.get('nombre').value,
+                telefono: this.myForm.get('telefono').value,
+                habitacion: this.myForm.get('habitacion').value,
+                fecha_ingreso: this.fechaIngreso,
+                fecha_salida: this.fechaSalida,
+                token: this.token,
+              };
+              this.huespedService.nuevoHuesped(this.nuevoHuesped);
+              this.myForm.reset();
+              this.presentAlert(
+                'Se guardó el nuevo huésped',
+                'Token generado: ' + this.token
+              );
+            }
+            else {
+              this.presentAlert('La habitacion #' + this.myForm.get('habitacion').value + ' ya se encuentra seleccionada, por favor seleccione otra habitación');
+            }
+          } else {
+            this.presentAlert('La fecha de salida no puede ser menor a la fecha de entrada');
+          }
         } else {
           this.presentAlert('Selecciona la fecha de salida');
         }
@@ -128,6 +137,12 @@ export class NuevoHuespedPage implements OnInit {
     } else {
       this.presentAlert('Ingresa los datos del nuevo huésped');
     }
+  }
+
+  public prueba() {
+    // console.log(this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value));
+console.log(this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida));
+
   }
 
   async presentAlert(mens: string, sub?: string) {

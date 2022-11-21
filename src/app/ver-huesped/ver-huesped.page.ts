@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { Huesped } from '../models/huesped';
 import { HuespedService } from '../services/huesped.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,15 +10,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VerHuespedPage implements OnInit {
   public huesped: Huesped;
-
+  countrycode: string = '52';
+  whatsappnumber: string = '13111049546';
+  // url:string="https://api.whatsapp.com/send?phone="+this.countrycode+this.whatsappnumber+";text=hi";
+  url:string='';
   constructor(
     private huespedService: HuespedService,
     private activatedRouteService: ActivatedRoute
+    
   ) {}
 
   ngOnInit() {
     this.activatedRouteService.queryParams.subscribe((params) => {
       this.huesped = this.huespedService.getHuespedToken(params.token);
     });
+    this.url="https://api.whatsapp.com/send?phone="+this.countrycode+this.whatsappnumber + '&amp;text='+ this.huesped.token;
+  }
+  public formatFecha(date:string){
+    const dateArray = date.split('-');
+    const dateFormat = new Date(dateArray[0]+'/'+dateArray[1]+'/'+dateArray[2]);
+    return (dateFormat.toLocaleDateString('es-es',{ weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }));
   }
 }
