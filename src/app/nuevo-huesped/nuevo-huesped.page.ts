@@ -20,7 +20,7 @@ export class NuevoHuespedPage implements OnInit {
   public nuevoHuesped: Huesped;
   public myForm: FormGroup;
   public validationMessages: Object;
-  public habitaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  public habitaciones = [];
   public diaActual: string;
   public diaSiguiente: string;
   public fechaIngreso: string;
@@ -79,6 +79,8 @@ export class NuevoHuespedPage implements OnInit {
       addDays(parseISO(this.diaActual), 1),
       'yyyy-MM-dd'
     );
+
+    this.habitaciones = this.huespedService.getHabitaciones();
   }
 
   public fechaSeleccionadaIngreso(evento: any): void {
