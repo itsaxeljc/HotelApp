@@ -14,16 +14,16 @@ export class HuespedService {
         token: 9895257528 + '',
         nombre: 'Bradley Addiel González Flores',
         telefono: '3222131135',
-        fecha_ingreso: '22/11/2022',
-        fecha_salida: '24/11/2022',
+        fecha_ingreso: '2022-11-21',
+        fecha_salida: '2022-11-24',
         habitacion: 1,
       },
       {
         token: 1245257528 + '',
         nombre: 'Gustavo Cerati',
         telefono: '3112247431',
-        fecha_ingreso: '25/11/2022',
-        fecha_salida: '28/11/2022',
+        fecha_ingreso: '2022-11-25',
+        fecha_salida: '2022-11-28',
         habitacion: 3,
       },
     ];
@@ -34,11 +34,11 @@ export class HuespedService {
   }
 
   public getHabitaciones(): number[] {
-    this.huespedes.map((huesped, i) => {
-      if (huesped.habitacion === this.habitaciones[i]) {
-        this.habitaciones.splice(i, 1);
-      }
-    });
+    // this.huespedes.map((huesped, i) => {
+    //   if (huesped.habitacion === this.habitaciones[i]) {
+    //     this.habitaciones.splice(i, 1);
+    //   }
+    // }); 
     return this.habitaciones;
   }
 
@@ -71,5 +71,27 @@ export class HuespedService {
       return huesped.token === token;
     });
     return item;
+  }
+  public validarFecha(fecha_ingreso: string, fecha_salida: string){
+    if (fecha_ingreso > fecha_salida ){
+      return false
+    }
+    return true;
+  }
+  public validRoomHuesped(fecha_ingreso: string, habitacion: number): boolean{
+    const huespedCuartoRepetido: number[] = [];
+    this.huespedes.forEach((huesped,i) => {
+      if (habitacion === huesped.habitacion){
+        huespedCuartoRepetido.push(i);
+      }
+    });
+    
+    for (let i = 0; i < huespedCuartoRepetido.length; i++){
+      const huesped = this.huespedes[huespedCuartoRepetido[i]];
+      if (huesped.fecha_ingreso <= fecha_ingreso && huesped.fecha_salida >= fecha_ingreso){
+        return false
+      }
+    }
+    return true;
   }
 }
