@@ -12,23 +12,24 @@ export class CheckinPage implements OnInit {
   public token: string;
   public allowed = false;
   public huesped: Huesped;
-  public now: Date;
-  public checkin: Date;
+  public hoy:string;
+  public checkin: string;
 
   constructor(private auth:AuthenticationService, private huespedService:HuespedService) {
       this.token = window.localStorage.getItem('token');
       this.huesped = this.huespedService.getHuespedToken(this.token);
-      this.validateCheckIn();
    }
 
   ngOnInit() {
-    this.now = new Date();
+    this.formatDate();
+    this.validateCheckIn();
   }
 
   validateCheckIn(){
     console.log(this.huesped.fecha_ingreso);
-    this.checkin = this.formatDate(this.huesped.fecha_ingreso);
-    if(this.now.getTime() > this.checkin.getTime()){
+    console.log(this.hoy);
+    this.checkin = this.huesped.fecha_ingreso;
+    if(this.hoy > this.huesped.fecha_ingreso){
       this.allowed = false;
       console.log("DENEGADO")
     } else{
@@ -37,10 +38,20 @@ export class CheckinPage implements OnInit {
     }
   }
 
-  formatDate(date: string) {
-    var parts = date.split("/");
-    console.log(parts[0]+" "+parts[1]+" "+parts[2]+" ");
-    return new Date(parseInt(parts[2]), parseInt(parts[1]), parseInt(parts[0]));
+  formatDate() {
+    let now = new Date;
+    let dd = now.getDate();
+    let mm = now.getMonth()+1;
+    let yyyy = now.getFullYear()+'';
+    let day = dd+'';
+    let month = mm+'';
+    if(dd<10){
+      day = '0'+dd;
+    }
+    if(mm<10){
+      month = '0'+mm;
+    }
+    this.hoy = yyyy+'-'+mm+'-'+dd;
   }
 
 }

@@ -1,9 +1,81 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>activities</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-item class="header">
+    <ion-icon name="earth-outline" class="icon"></ion-icon>
+    <ion-label class="title">
+      <h1>{{"EXPLORE" | translate}}</h1>
+      <p>{{"EXPLORE-M" | translate}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"ACT" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let item of activities">
+             <ion-card>
+                <img alt="Activity" [src]="item.url" />
+                <ion-card-header>
+                  <ion-card-title>{{item.title | translate}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p>{{item.content | translate}}</p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"REC" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let item of recommendations">
+             <ion-card>
+                <img alt="Activity" [src]="item.url" />
+                <ion-card-header>
+                  <ion-card-title>{{item.title | translate}}</ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"HIS" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <iframe src="https://www.youtube.com/embed/eDaJMhBPBos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h1>{{"LEY-T" | translate}}</h1>
+        <p>{{"LEY" | translate}}</p>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="fourth">
+      <ion-item slot="header" color="light">
+        <ion-label>{{"NUM" | translate}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let item of telephones">
+             <ion-card>
+                <img alt="Activity" [src]="item.url" />
+                <ion-card-header>
+                  <ion-card-title>{{item.title | translate}}</ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
