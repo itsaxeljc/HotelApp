@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>rules</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor = "let item of rules">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{item.title | translate}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          {{item.descrip | translate}}
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

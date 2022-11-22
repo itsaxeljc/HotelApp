@@ -8,12 +8,16 @@ import { RulesPageRoutingModule } from './rules-routing.module';
 
 import { RulesPage } from './rules.page';
 
+import { TranslateModule } from '@ngx-translate/core';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RulesPageRoutingModule
+    RulesPageRoutingModule,
+    TranslateModule
   ],
   declarations: [RulesPage]
 })

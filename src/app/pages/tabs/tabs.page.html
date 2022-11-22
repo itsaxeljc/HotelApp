@@ -4,7 +4,7 @@
       <ion-icon name="ellipsis-vertical"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button>
+      <ion-fab-button (click)="languageSelector()">
         <ion-icon name="language-outline"></ion-icon>
       </ion-fab-button>
       <ion-fab-button (click)="cerrarSesion()">
@@ -16,17 +16,17 @@
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="rules">
       <ion-icon name="information-outline"></ion-icon>
-      <ion-label>Reglamento</ion-label>
+      <ion-label>{{"RULES" | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="checkin">
       <ion-icon name="key-outline"></ion-icon>
-      <ion-label>Ingreso</ion-label>
+      <ion-label>{{"CHECKIN" | translate}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="activities">
       <ion-icon name="compass-outline"></ion-icon>
-      <ion-label>Actividades</ion-label>
+      <ion-label>{{"ACT" | translate}}</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>
