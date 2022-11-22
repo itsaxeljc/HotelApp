@@ -1,12 +1,12 @@
 <ion-content>
   <div class="container" *ngIf="allowed">
-    <ion-card>
-      <img alt="Oops" src="../../../assets/pics/oops.gif" />
+    <ion-card class="container">
+      <img alt="Oops" src="../../../assets/pics/Vault.gif" />
       <ion-card-header>
-        <ion-card-title>{{"WELCOME" | translate}} {{huesped.nombre}}</ion-card-title>
+        <ion-card-title>{{"WELCOME" | translate}} {{huesped.nombre}} !</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>La clave de acceso para la caja fuerte de su habitación es {{checkin}}.</h2>
+        <h2>{{"CLAVE" | translate}} {{clave}}.</h2>
       </ion-card-content>
     </ion-card>
   </div>

@@ -17,6 +17,7 @@ export class TabsPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state){
         this.token = this.router.getCurrentNavigation().extras.state.token;
+        window.localStorage.setItem('token',this.token);
       }
     });
 

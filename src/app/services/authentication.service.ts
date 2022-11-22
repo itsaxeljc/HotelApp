@@ -15,10 +15,10 @@ export class AuthenticationService {
     private alertController: AlertController
   ) {}
 
-  async validarToken(token: string) {
+  validarToken(token: string) {
     this.token = token;
     if (token === this.tokens[0]) {
-      await this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     } 
     else if(this.tokens.includes(token)){
       let navigationExtras: NavigationExtras = {
@@ -27,7 +27,7 @@ export class AuthenticationService {
         }
       }
       window.localStorage.setItem('token',this.token);
-      await this.router.navigate(['/tabs'], navigationExtras);
+      this.router.navigate(['/tabs'], navigationExtras);
     }
     else {
           this.presentAlert();

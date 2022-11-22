@@ -24,8 +24,8 @@ export class HuespedService {
       },
       {
         token: 1245257528 + '',
-        nombre: 'Gustavo Cerati',
-        telefono: '3112247431',
+        nombre: 'Pedro Avila',
+        telefono: '3111950830',
         fecha_ingreso: '2022-11-25',
         fecha_salida: '2022-11-28',
         habitacion: 3,

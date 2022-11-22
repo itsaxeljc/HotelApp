@@ -14,13 +14,16 @@ export class CheckinPage implements OnInit {
   public huesped: Huesped;
   public hoy:string;
   public checkin: string;
+  public clave: number;
 
   constructor(private auth:AuthenticationService, private huespedService:HuespedService) {
       this.token = window.localStorage.getItem('token');
       this.huesped = this.huespedService.getHuespedToken(this.token);
+      this.clave = this.huespedService.getClaveHabitacion(this.token);
    }
 
   ngOnInit() {
+    this.token = window.localStorage.getItem('token');
     this.formatDate();
     this.validateCheckIn();
   }
@@ -29,7 +32,7 @@ export class CheckinPage implements OnInit {
     console.log(this.huesped.fecha_ingreso);
     console.log(this.hoy);
     this.checkin = this.huesped.fecha_ingreso;
-    if(this.hoy > this.huesped.fecha_ingreso){
+    if(this.hoy < this.huesped.fecha_ingreso || this.hoy > this.huesped.fecha_salida){
       this.allowed = false;
       console.log("DENEGADO")
     } else{
