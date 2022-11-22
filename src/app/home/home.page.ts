@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
   public huespedes: Huesped[];
-
+  countrycode: string = '52';
+  whatsappnumber: string = '13111049546';
+  url:string='';
   constructor(
     private huespedService: HuespedService,
     private alertController: AlertController,

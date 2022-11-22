@@ -18,7 +18,14 @@
       <ion-list>
         <ion-item-sliding *ngFor="let huesped of huespedes; let i=index">
           <ion-item>
-            <ion-label>{{huesped.nombre}}</ion-label>
+            <ion-label>{{huesped.nombre}} </ion-label>
+            <ion-label>{{huesped.habitacion}} </ion-label>
+            <ion-label>{{huesped.fecha_ingreso}} </ion-label>
+            <ion-label>{{huesped.fecha_salida}} </ion-label>
+            <ion-button color="success" href="{{'https://wa.me/' + countrycode+huesped.telefono + '?text=Gracias por reservar, aquí tiene su código de acceso: '+ huesped.token}}" target="_blank" slot="end" class="margin">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              &nbsp; Enviar token 
+            </ion-button>
             <ion-button
               (click)="verHuesped(huesped.token)"
               slot="end"
