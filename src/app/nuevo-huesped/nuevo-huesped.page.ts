@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { format, add, parseISO, addDays } from 'date-fns';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-huesped',
@@ -32,8 +33,8 @@ export class NuevoHuespedPage implements OnInit {
   constructor(
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
-    private alertController: AlertController
-    
+    private alertController: AlertController,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -135,6 +136,7 @@ export class NuevoHuespedPage implements OnInit {
                 'Se guardó el nuevo huésped',
                 'Token generado: ' + this.token
               );
+              this.router.navigate(['/home']);
             }
             else {
               this.presentAlert('La habitacion #' + this.myForm.get('habitacion').value + ' ya se encuentra seleccionada, por favor seleccione otra habitación');
