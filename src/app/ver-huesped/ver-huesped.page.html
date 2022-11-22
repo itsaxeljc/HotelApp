@@ -1,5 +1,9 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button color="success" href={{url}} target="_blank" slot="end" class="margin">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      &nbsp; Enviar token 
+    </ion-button>
     <ion-title>Habitación {{huesped.habitacion}}</ion-title>
     <ion-tab-button slot="start">
       <ion-back-button></ion-back-button>
@@ -19,8 +23,4 @@
       </ion-card-subtitle>
     </ion-card-header>
   </ion-card>
-
-  <ion-button color="success" href={{url}}>
-    <ion-icon name="logo-whatsapp"></ion-icon>
-  </ion-button>
 </ion-content>

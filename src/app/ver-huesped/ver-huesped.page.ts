@@ -24,7 +24,7 @@ export class VerHuespedPage implements OnInit {
     this.activatedRouteService.queryParams.subscribe((params) => {
       this.huesped = this.huespedService.getHuespedToken(params.token);
     });
-    this.url="https://api.whatsapp.com/send?phone="+this.countrycode+this.whatsappnumber + '&amp;text='+ this.huesped.token;
+    this.url=" https://wa.me/"+this.countrycode+this.whatsappnumber + "?text=Gracias por reservar, aquí tiene su código de acceso: "+ this.huesped.token;
   }
   public formatFecha(date:string){
     const dateArray = date.split('-');
