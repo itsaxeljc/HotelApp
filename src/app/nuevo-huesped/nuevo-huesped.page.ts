@@ -31,6 +31,7 @@ export class NuevoHuespedPage implements OnInit {
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
     private alertController: AlertController
+    
   ) { }
 
   ngOnInit() {
@@ -141,7 +142,9 @@ export class NuevoHuespedPage implements OnInit {
 
   public prueba() {
     // console.log(this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value));
-console.log(this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida));
+// console.log(this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida));
+console.log(this.huespedService.prueba('2022-11-21'));
+
 
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Huesped } from '../models/huesped';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ export class HuespedService {
   public huespedes: Huesped[];
   public habitaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  constructor() {
+  constructor(private authService:AuthenticationService) {
     this.huespedes = [
       {
         token: 9895257528 + '',
@@ -55,13 +56,15 @@ export class HuespedService {
   }
 
   public borrarHuesped(index: number): Huesped[] {
+    this.authService.borrarToken(this.huespedes[index].token);
     this.huespedes.splice(index, 1);
     return this.huespedes;
   }
 
   public nuevoHuesped(Huesped: Huesped): Huesped[] {
     this.huespedes.push(Huesped);
-    this.getHuespedes();
+    this.authService.tokens.push(Huesped.token);
+    // this.getHuespedes();
     return this.huespedes;
   }
 
@@ -77,6 +80,9 @@ export class HuespedService {
       return false
     }
     return true;
+  }
+  public prueba(fecha_evaluar: string){
+
   }
   public validRoomHuesped(fecha_ingreso: string, habitacion: number): boolean{
     const huespedCuartoRepetido: number[] = [];
