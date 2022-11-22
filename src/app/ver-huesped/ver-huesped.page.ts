@@ -12,8 +12,9 @@ export class VerHuespedPage implements OnInit {
   public huesped: Huesped;
   countrycode: string = '52';
   whatsappnumber: string = '13111049546';
-  // url:string="https://api.whatsapp.com/send?phone="+this.countrycode+this.whatsappnumber+";text=hi";
   url:string='';
+  public precioHabitacion = 0;
+  public claveHabitacion = 0;
   constructor(
     private huespedService: HuespedService,
     private activatedRouteService: ActivatedRoute
@@ -25,7 +26,10 @@ export class VerHuespedPage implements OnInit {
       this.huesped = this.huespedService.getHuespedToken(params.token);
     });
     this.url=" https://wa.me/"+this.countrycode+this.whatsappnumber + "?text=Gracias por reservar, aquí tiene su código de acceso: "+ this.huesped.token;
+    this.precioHabitacion = this.huespedService.getPrecioHabitacion(this.huesped.token);
+    this.claveHabitacion = this.huespedService.getClaveHabitacion(this.huesped.token);
   }
+  
   public formatFecha(date:string){
     const dateArray = date.split('-');
     const dateFormat = new Date(dateArray[0]+'/'+dateArray[1]+'/'+dateArray[2]);

@@ -8,6 +8,8 @@ import { AuthenticationService } from './authentication.service';
 export class HuespedService {
   public huespedes: Huesped[];
   public habitaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  public precioHabitaciones = [2300, 1200, 1500, 3100, 4000, 2500, 1300, 1300, 1300, 2000];
+  public claveHabitaciones = [125478, 365214, 364128, 259436, 256478, 125946, 231524, 154758, 456325, 121236];
 
   constructor(private authService:AuthenticationService) {
     this.huespedes = [
@@ -18,6 +20,7 @@ export class HuespedService {
         fecha_ingreso: '2022-11-21',
         fecha_salida: '2022-11-24',
         habitacion: 1,
+        anticipo:600
       },
       {
         token: 1245257528 + '',
@@ -26,6 +29,7 @@ export class HuespedService {
         fecha_ingreso: '2022-11-25',
         fecha_salida: '2022-11-28',
         habitacion: 3,
+        anticipo:300
       },
     ];
   }
@@ -99,5 +103,25 @@ export class HuespedService {
       }
     }
     return true;
+  }
+  public getPrecioHabitaciones(){
+      return this.precioHabitaciones;
+  }
+  public getPrecioHabitacion(token:string){
+      let item: Huesped;
+      item = this.huespedes.find((huesped) => {
+      return huesped.token === token;
+    });
+    return this.precioHabitaciones[+item.habitacion-1];
+  }
+  public getClaveHabitaciones(){
+      return this.claveHabitaciones;
+  }
+  public getClaveHabitacion(token:string){
+      let item: Huesped;
+      item = this.huespedes.find((huesped) => {
+      return huesped.token === token;
+    });
+    return this.claveHabitaciones[+item.habitacion-1];
   }
 }

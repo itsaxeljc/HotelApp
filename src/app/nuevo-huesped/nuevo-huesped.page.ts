@@ -21,6 +21,8 @@ export class NuevoHuespedPage implements OnInit {
   public myForm: FormGroup;
   public validationMessages: Object;
   public habitaciones = [];
+  public precioHabitaciones = [];
+  public claveHabitaciones = [];
   public diaActual: string;
   public diaSiguiente: string;
   public fechaIngreso: string;
@@ -48,6 +50,7 @@ export class NuevoHuespedPage implements OnInit {
       ],
       habitacion: ['', Validators.compose([Validators.required])],
       token: new FormControl({ value: '', disabled: true }),
+      anticipo: ['', [Validators.required, Validators.pattern('([0-9])+(\.([0-9]{1,2}))?')]],
     });
 
     this.validationMessages = {
@@ -73,6 +76,12 @@ export class NuevoHuespedPage implements OnInit {
           message: 'Selecciona una habitación',
         },
       ],
+      anticipo: [
+        {
+          type: 'required',
+          message: 'Ingrese el anticipo del cliente',
+        },
+      ],
     };
 
     this.diaActual = format(new Date(), 'yyyy-MM-dd');
@@ -82,6 +91,9 @@ export class NuevoHuespedPage implements OnInit {
     );
 
     this.habitaciones = this.huespedService.getHabitaciones();
+    this.precioHabitaciones = this.huespedService.getPrecioHabitaciones();
+    this.claveHabitaciones = this.huespedService.getClaveHabitaciones();
+
   }
 
   public fechaSeleccionadaIngreso(evento: any): void {
@@ -115,6 +127,7 @@ export class NuevoHuespedPage implements OnInit {
                 fecha_ingreso: this.fechaIngreso,
                 fecha_salida: this.fechaSalida,
                 token: this.token,
+                anticipo: this.myForm.get('anticipo').value
               };
               this.huespedService.nuevoHuesped(this.nuevoHuesped);
               this.myForm.reset();
@@ -155,5 +168,10 @@ console.log(this.huespedService.prueba('2022-11-21'));
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  public precioCuarto(){
+    
+    return 1
   }
 }
