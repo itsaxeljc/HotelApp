@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
 export class AuthenticationService {
   // Login básico
   public tokens = ['admin','9895257528'];
+  public token = '';
 
   constructor(
     private router: Router,
@@ -15,15 +16,22 @@ export class AuthenticationService {
   ) {}
 
   async validarToken(token: string) {
-    console.log(this.tokens)
+    this.token = token;
     if (token === this.tokens[0]) {
       await this.router.navigate(['/home']);
     } 
     else if(this.tokens.includes(token)){
-      await this.router.navigate(['/tabs']);
+      let navigationExtras: NavigationExtras = {
+        state: {
+          token: token
+        }
+      }
+      window.localStorage.setItem('token',this.token);
+      await this.router.navigate(['/tabs'], navigationExtras);
     }
     else {
           this.presentAlert();
+          this.token = '';
     }
   }
 
@@ -33,5 +41,9 @@ export class AuthenticationService {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  getToken() {
+    return this.token;
   }
 }

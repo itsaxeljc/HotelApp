@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, NavParams } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tabs',
@@ -9,12 +10,60 @@ import { Router } from '@angular/router';
 })
 export class TabsPage implements OnInit {
 
-  constructor(private router: Router) { }
+  public alertHeader: string;
+  public token: string;
+
+  constructor(private router: Router, private alertController: AlertController, private translateService: TranslateService, private route: ActivatedRoute) { 
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state){
+        this.token = this.router.getCurrentNavigation().extras.state.token;
+      }
+    });
+
+  }
 
   ngOnInit() {
   }
 
-  public cerrarSesion() {
+  cerrarSesion() {
     this.router.navigate(['/login']);
+  }
+
+  changeLang(lang: string) {
+    this.translateService.use(lang);
+  }
+
+  async languageSelector(){
+    let headerT = this.translateService.get('SELECT').subscribe((res: string) => {
+      return res;
+  });
+    const alert = await this.alertController.create({
+      header: "Seleccione un idioma",
+      inputs: [
+        {
+          label: 'Español',
+          type: 'radio',
+          value: 'spanish'
+        },
+        {
+          label: 'English',
+          type: 'radio',
+          value: 'english'
+        },
+        {
+          label: 'Français',
+          type: 'radio',
+          value: 'french'
+        }
+      ],
+      buttons: [{
+        text: 'OK',
+        handler: (alertData) =>{
+          this.changeLang(alertData);
+        }
+      }]
+    });
+
+    await alert.present();
   }
 }

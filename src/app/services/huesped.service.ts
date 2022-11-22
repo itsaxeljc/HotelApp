@@ -14,7 +14,7 @@ export class HuespedService {
         token: 9895257528 + '',
         nombre: 'Bradley Addiel González Flores',
         telefono: '3222131135',
-        fecha_ingreso: '21/11/2022',
+        fecha_ingreso: '22/11/2022',
         fecha_salida: '24/11/2022',
         habitacion: 1,
       },

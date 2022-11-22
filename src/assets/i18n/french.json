@@ -1,0 +1,13 @@
+{
+    "SELECT": "Choisizes une langue",
+    "RULES" : "Règlement",
+    "CHECKIN" : "Entrée",
+    "ACT" : "Activités",
+    "RT1" : "Inscription", "R1" : "Tous les clients, individuels ou en groupe, doivent remplir un formulaire d'inscription individuel ou pour chaque chambre, qui leur sera remis à leur arrivée à la réception de l'hôtel",
+    "RT2" : "Obligation d'information de l'hôte", "R2" : "Les hôtes sont tenus d'informer la direction de l'hôtel des maladies ou maladies contagieuses, des décès, des infractions ou des délits qui se produisent dans l'établissement et dont ils ont connaissance, afin que l'hôtel puisse à son tour prendre les mesures appropriées et les signaler immédiatement aux autorités le cas échéant",
+    "RT3": "Enregistrement du client à l'hôtel",  "R3" : "L'heure d'entrée dans la chambre est à partir de 15h00 et l'heure de sortie est au plus tard à 12h00, sinon une nuit supplémentaire sera facturée. Si, pour des raisons personnelles, le client doit s'enregistrer après 20 heures, il doit donner un préavis de 24 heures avant son arrivée",
+    "RT4" : "Utilisation des services", "R4" : "Les services (eau, électricité, gaz, etc.) fournis par l'hôtel sont utilisés conformément aux règles de la bonne foi, sans que le gaspillage ou l'utilisation disproportionnée de ceux-ci ne soient inclus dans le prix, nous aident à maintenir des tarifs bas et accessibles ainsi qu'à prendre soin de l'environnement",
+    "RT5" : "Séjour dans l'hôtel", "R5" : "Les clients peuvent prendre avec eux ou laisser les clés de leur chambre à la réception ou à l'administration jusqu'à 20h00 chaque fois qu'ils quittent l'établissement. Ils ne peuvent héberger dans leurs chambres d'autres personnes que celles qui sont inscrites et, en tout état de cause, ils doivent informer préalablement l'administration de toute modification du nombre ou de l'identification des personnes initialement inscrites. Les visiteurs des clients ne seront pas autorisés à passer la nuit. Les personnes autres que celles qui ont contracté les services ne peuvent pas non plus venir en profiter, et l'hôtel ne peut pas être utilisé comme un lieu de transactions commerciales",
+    "RT6" : "Accès à l'hôtel", "R6" : "L'hôtel doit être ouvert au public. L'hôtel est ouvert au public de 8h00 à 21h30. Si le client souhaite entrer ou sortir après 21h30, il doit sonner à la porte principale. La porte d'accès à l'hôtel après 21h30 ne sera ouverte et fermée que par le personnel de l'hôtel",
+    "RT7" : "Nettoyage des chambres", "R7" : "Le nettoyage des chambres sera effectué le matin, de 9h00 à 12h00. Les clients qui ne rendent pas leur chambre disponible pendant ces heures ne verront pas leur chambre nettoyée."
+}

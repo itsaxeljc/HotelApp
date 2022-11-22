@@ -8,12 +8,16 @@ import { CheckinPageRoutingModule } from './checkin-routing.module';
 
 import { CheckinPage } from './checkin.page';
 
+import { TranslateModule } from '@ngx-translate/core';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CheckinPageRoutingModule
+    CheckinPageRoutingModule,
+    TranslateModule
   ],
   declarations: [CheckinPage]
 })
