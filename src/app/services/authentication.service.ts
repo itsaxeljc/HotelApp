@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class AuthenticationService {
   // Login básico
-  public tokens = ['admin','9895257528'];
+  public tokens = ['admin','9895257528','1245257528'];
   public token = '';
 
   constructor(
