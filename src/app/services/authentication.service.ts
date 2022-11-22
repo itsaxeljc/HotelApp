@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class AuthenticationService {
   // Login básico
-  public tokens = ['admin','9895257528'];
+  public tokens = ['admin','9895257528','1245257528'];
   public token = '';
 
   constructor(
@@ -43,6 +43,14 @@ export class AuthenticationService {
     await alert.present();
   }
 
+  public borrarToken(token:string){
+    this.tokens.forEach((tok,i) => {
+      if (tok === token){
+        this.tokens.splice(i,1);
+        return;
+      }
+    });
+  }
   getToken() {
     return this.token;
   }

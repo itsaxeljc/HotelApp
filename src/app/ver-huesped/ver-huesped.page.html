@@ -20,6 +20,9 @@
         <h2>Fecha de salida: {{formatFecha(huesped.fecha_salida)}}</h2>
         <h3>Token: {{huesped.token}}</h3>
         <h3>Habitación: {{huesped.habitacion}}</h3>
+        <h3>Precio del cuarto: {{precioHabitacion | currency}}</h3>
+        <h3>Anticipo: {{huesped.anticipo | currency}}</h3>
+        <h3>Clave del cuarto: {{claveHabitacion}}</h3>
       </ion-card-subtitle>
     </ion-card-header>
   </ion-card>

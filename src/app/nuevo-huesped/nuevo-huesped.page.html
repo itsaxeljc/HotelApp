@@ -58,7 +58,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label position="floating"> Habitación del huésped </ion-label>
+            <ion-label position="floating">Habitación del huésped</ion-label>
             <ion-select
               formControlName="habitacion"
               placeholder="Selecciona una habitación"
@@ -82,6 +82,52 @@
               </div>
             </ng-container>
           </div>
+        </ion-col>
+      </ion-row>
+            <!-- Precio Cuarto -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">
+              Precio del cuarto
+            </ion-label>
+            <ion-input value="{{(precioHabitaciones[+myForm.get('habitacion').value-1]  || 0) | currency}}" [readonly]="true"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Anticipo -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">
+              Anticipo del cliente
+            </ion-label>
+            <ion-input formControlName="anticipo"> </ion-input>
+          </ion-item>
+          <div>
+            <ng-container *ngFor="let item of validationMessages['anticipo']">
+              <div
+                class="error-message"
+                *ngIf="
+                (myForm.get('anticipo').dirty || myForm.get('anticipo').touched) &&
+                myForm.get('anticipo').hasError(item.type)"
+              >
+                {{item.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <!-- Clave cuarto -->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">
+              Clave del cuarto
+            </ion-label>
+            <ion-input value="{{claveHabitaciones[+myForm.get('habitacion').value-1]  || ''}}" [readonly]="true" placeholder="Sin cuarto seleccionado"> </ion-input>
+          </ion-item>
         </ion-col>
       </ion-row>
       <!-- Calendarios -->
@@ -114,8 +160,8 @@
     <ion-icon slot="start" name="save"></ion-icon>
     Guardar
   </ion-button>
-  <ion-button (click)="prueba()" class="btn" size="large">
+  <!-- <ion-button (click)="prueba()" class="btn" size="large">
     <ion-icon slot="start" name="save"></ion-icon>
     Probar
-  </ion-button>
+  </ion-button> -->
 </ion-content>
