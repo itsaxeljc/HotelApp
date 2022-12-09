@@ -34,8 +34,8 @@ export class NuevoHuespedPage implements OnInit {
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private router:Router
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -51,7 +51,10 @@ export class NuevoHuespedPage implements OnInit {
       ],
       habitacion: ['', Validators.compose([Validators.required])],
       token: new FormControl({ value: '', disabled: true }),
-      anticipo: ['', [Validators.required, Validators.pattern('([0-9])+(\.([0-9]{1,2}))?')]],
+      anticipo: [
+        '',
+        [Validators.required, Validators.pattern('([0-9])+(.([0-9]{1,2}))?')],
+      ],
     });
 
     this.validationMessages = {
@@ -94,13 +97,12 @@ export class NuevoHuespedPage implements OnInit {
     this.habitaciones = this.huespedService.getHabitaciones();
     this.precioHabitaciones = this.huespedService.getPrecioHabitaciones();
     this.claveHabitaciones = this.huespedService.getClaveHabitaciones();
-
   }
 
   public fechaSeleccionadaIngreso(evento: any): void {
     try {
       const ingreso = format(parseISO(evento.detail.value), 'yyyy-MM-dd');
-      this.fechaIngreso = format(addDays(parseISO(ingreso), 1), 'yyyy-MM-dd');
+      this.fechaIngreso = format(addDays(parseISO(ingreso), 0), 'yyyy-MM-dd');
     } catch (error) {
       console.error(error);
     }
@@ -118,8 +120,18 @@ export class NuevoHuespedPage implements OnInit {
     if (this.myForm.valid) {
       if (this.fechaIngreso !== undefined) {
         if (this.fechaSalida !== undefined) {
-          if (this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida)) {
-            if (this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value)) {
+          if (
+            this.huespedService.validarFecha(
+              this.fechaIngreso,
+              this.fechaSalida
+            )
+          ) {
+            if (
+              this.huespedService.validRoomHuesped(
+                this.fechaIngreso,
+                this.myForm.get('habitacion').value
+              )
+            ) {
               this.token = this.huespedService.crearToken();
               this.nuevoHuesped = {
                 nombre: this.myForm.get('nombre').value,
@@ -128,7 +140,7 @@ export class NuevoHuespedPage implements OnInit {
                 fecha_ingreso: this.fechaIngreso,
                 fecha_salida: this.fechaSalida,
                 token: this.token,
-                anticipo: this.myForm.get('anticipo').value
+                anticipo: this.myForm.get('anticipo').value,
               };
               this.huespedService.nuevoHuesped(this.nuevoHuesped);
               this.myForm.reset();
@@ -137,12 +149,17 @@ export class NuevoHuespedPage implements OnInit {
                 'Token generado: ' + this.token
               );
               this.router.navigate(['/home']);
-            }
-            else {
-              this.presentAlert('La habitacion #' + this.myForm.get('habitacion').value + ' ya se encuentra seleccionada, por favor seleccione otra habitación');
+            } else {
+              this.presentAlert(
+                'La habitacion #' +
+                  this.myForm.get('habitacion').value +
+                  ' ya se encuentra seleccionada, por favor seleccione otra habitación'
+              );
             }
           } else {
-            this.presentAlert('La fecha de salida no puede ser menor a la fecha de entrada');
+            this.presentAlert(
+              'La fecha de salida no puede ser menor a la fecha de entrada'
+            );
           }
         } else {
           this.presentAlert('Selecciona la fecha de salida');
@@ -155,14 +172,6 @@ export class NuevoHuespedPage implements OnInit {
     }
   }
 
-  public prueba() {
-    // console.log(this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value));
-// console.log(this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida));
-console.log(this.huespedService.prueba('2022-11-21'));
-
-
-  }
-
   async presentAlert(mens: string, sub?: string) {
     const alert = await this.alertController.create({
       header: mens,
@@ -172,8 +181,7 @@ console.log(this.huespedService.prueba('2022-11-21'));
     await alert.present();
   }
 
-  public precioCuarto(){
-    
-    return 1
+  public precioCuarto() {
+    return 1;
   }
 }

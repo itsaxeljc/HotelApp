@@ -9,24 +9,27 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-
   public alertHeader: string;
   public token: string;
 
-  constructor(private router: Router, private alertController: AlertController, private translateService: TranslateService, private route: ActivatedRoute) { 
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state){
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private translateService: TranslateService,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      if (this.router.getCurrentNavigation().extras.state) {
         this.token = this.router.getCurrentNavigation().extras.state.token;
-        window.localStorage.setItem('token',this.token);
+        window.localStorage.setItem('token', this.token);
       }
     });
-
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   cerrarSesion() {
+    window.localStorage.setItem('myObject', null);
     this.router.navigate(['/login']);
   }
 
@@ -34,35 +37,39 @@ export class TabsPage implements OnInit {
     this.translateService.use(lang);
   }
 
-  async languageSelector(){
-    let headerT = this.translateService.get('SELECT').subscribe((res: string) => {
-      return res;
-  });
+  async languageSelector() {
+    let headerT = this.translateService
+      .get('SELECT')
+      .subscribe((res: string) => {
+        return res;
+      });
     const alert = await this.alertController.create({
-      header: "Seleccione un idioma",
+      header: 'Seleccione un idioma',
       inputs: [
         {
           label: 'Español',
           type: 'radio',
-          value: 'spanish'
+          value: 'spanish',
         },
         {
           label: 'English',
           type: 'radio',
-          value: 'english'
+          value: 'english',
         },
         {
           label: 'Français',
           type: 'radio',
-          value: 'french'
-        }
+          value: 'french',
+        },
       ],
-      buttons: [{
-        text: 'OK',
-        handler: (alertData) =>{
-          this.changeLang(alertData);
-        }
-      }]
+      buttons: [
+        {
+          text: 'OK',
+          handler: (alertData) => {
+            this.changeLang(alertData);
+          },
+        },
+      ],
     });
 
     await alert.present();

@@ -12,16 +12,19 @@ export class HomePage {
   public huespedes: Huesped[];
   countrycode: string = '52';
   whatsappnumber: string = '13111049546';
-  url:string='';
+  url: string = '';
   constructor(
     private huespedService: HuespedService,
     private alertController: AlertController,
     private router: Router
   ) {
-    this.huespedes = huespedService.getHuespedes();
+    this.huespedService.getHuespedes().subscribe((res) => {
+      this.huespedes = res;
+      console.log(this.huespedes);
+    });
   }
 
-  public async borrarHuesped(pos: number) {
+  public async borrarHuesped(id: string) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       subHeader: '¿Estás seguro que deseas eliminar el huésped?',
@@ -35,7 +38,7 @@ export class HomePage {
           text: 'Aceptar',
           role: 'confirm',
           handler: () => {
-            this.huespedes = this.huespedService.borrarHuesped(pos);
+            this.huespedService.borrarHuesped(id);
           },
         },
       ],
@@ -43,9 +46,9 @@ export class HomePage {
     await alert.present();
   }
 
-  public verHuesped(token: string) {
+  public verHuesped(id: string) {
     this.router.navigate(['/ver-huesped'], {
-      queryParams: { token: token },
+      queryParams: { id: id },
     });
   }
 

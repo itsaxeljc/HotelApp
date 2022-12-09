@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Component, OnInit } from '@angular/core';
 import { HuespedService } from 'src/app/services/huesped.service';
 import { Huesped } from 'src/app/models/huesped';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkin',
@@ -9,52 +9,63 @@ import { Huesped } from 'src/app/models/huesped';
   styleUrls: ['./checkin.page.scss'],
 })
 export class CheckinPage implements OnInit {
-  public token: string;
+  public id: string;
   public allowed = false;
   public huesped: Huesped;
-  public hoy:string;
+  public hoy: string;
   public checkin: string;
   public clave: number;
 
-  constructor(private auth:AuthenticationService, private huespedService:HuespedService) {
-      this.token = window.localStorage.getItem('token');
-      this.huesped = this.huespedService.getHuespedToken(this.token);
-      this.clave = this.huespedService.getClaveHabitacion(this.token);
-   }
+  constructor(
+    private huespedService: HuespedService,
+    private activatedRouteService: ActivatedRoute
+  ) {
+    this.huesped = {
+      token: '',
+      nombre: '',
+      telefono: '',
+      fecha_ingreso: '',
+      fecha_salida: '',
+      habitacion: 0,
+      anticipo: 0,
+      id: '',
+    };
+    this.clave = 0;
+  }
 
   ngOnInit() {
-    this.token = window.localStorage.getItem('token');
+    this.huesped = JSON.parse(window.localStorage.getItem('myObject'));
     this.formatDate();
     this.validateCheckIn();
   }
 
-  validateCheckIn(){
-    console.log(this.huesped.fecha_ingreso);
-    console.log(this.hoy);
+  validateCheckIn() {
     this.checkin = this.huesped.fecha_ingreso;
-    if(this.hoy < this.huesped.fecha_ingreso || this.hoy > this.huesped.fecha_salida){
+    if (
+      this.hoy < this.huesped.fecha_ingreso ||
+      this.hoy > this.huesped.fecha_salida
+    ) {
       this.allowed = false;
-      console.log("DENEGADO")
-    } else{
+      console.log('DENEGADO');
+    } else {
       this.allowed = true;
-      console.log("PERMITIDO")
+      console.log('PERMITIDO');
     }
   }
 
   formatDate() {
-    let now = new Date;
+    let now = new Date();
     let dd = now.getDate();
-    let mm = now.getMonth()+1;
-    let yyyy = now.getFullYear()+'';
-    let day = dd+'';
-    let month = mm+'';
-    if(dd<10){
-      day = '0'+dd;
+    let mm = now.getMonth() + 1;
+    let yyyy = now.getFullYear() + '';
+    let day = dd + '';
+    let month = mm + '';
+    if (dd < 10) {
+      day = '0' + dd;
     }
-    if(mm<10){
-      month = '0'+mm;
+    if (mm < 10) {
+      month = '0' + mm;
     }
-    this.hoy = yyyy+'-'+mm+'-'+dd;
+    this.hoy = yyyy + '-' + mm + '-' + dd;
   }
-
 }

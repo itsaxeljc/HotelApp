@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Huesped } from 'src/app/models/huesped';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -7,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class AuthenticationService {
   // Login básico
-  public tokens = ['admin','9895257528','1245257528'];
+  public tokens = ['admin', '9895257528', '1245257528'];
   public token = '';
 
   constructor(
@@ -15,23 +16,12 @@ export class AuthenticationService {
     private alertController: AlertController
   ) {}
 
-  validarToken(token: string) {
-    this.token = token;
-    if (token === this.tokens[0]) {
+  validarToken(token: string, huesped: Huesped) {
+    if (token === 'admin') {
       this.router.navigate(['/home']);
-    } 
-    else if(this.tokens.includes(token)){
-      let navigationExtras: NavigationExtras = {
-        state: {
-          token: token
-        }
-      }
-      window.localStorage.setItem('token',this.token);
-      this.router.navigate(['/tabs'], navigationExtras);
-    }
-    else {
-          this.presentAlert();
-          this.token = '';
+    } else {
+      window.localStorage.setItem('myObject', JSON.stringify(huesped));
+      this.router.navigate(['/tabs/checkin']);
     }
   }
 
@@ -43,14 +33,15 @@ export class AuthenticationService {
     await alert.present();
   }
 
-  public borrarToken(token:string){
-    this.tokens.forEach((tok,i) => {
-      if (tok === token){
-        this.tokens.splice(i,1);
+  public borrarToken(token: string) {
+    this.tokens.forEach((tok, i) => {
+      if (tok === token) {
+        this.tokens.splice(i, 1);
         return;
       }
     });
   }
+
   getToken() {
     return this.token;
   }
