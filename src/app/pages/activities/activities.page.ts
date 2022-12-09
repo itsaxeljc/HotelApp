@@ -21,7 +21,7 @@ export class ActivitiesPage implements OnInit {
         content: 'BOAT'
       },
       {
-        url: 'https://innovacioneconomica.com/wp-content/uploads/2020/11/man-on-boat-angliing-with-fishing-rod.jpg',
+        url: 'https://definicion.de/wp-content/uploads/2009/12/pescadores.jpg',
         title: 'T-FISHING',
         content: 'FISHING'
       },

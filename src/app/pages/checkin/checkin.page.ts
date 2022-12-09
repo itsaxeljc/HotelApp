@@ -11,19 +11,28 @@ import { Huesped } from 'src/app/models/huesped';
 export class CheckinPage implements OnInit {
   public token: string;
   public allowed = false;
-  public huesped: Huesped;
+  public huesped: Huesped = {
+        token: 9895257528 + '',
+        nombre: 'Bradley Addiel González Flores',
+        telefono: '3222131135',
+        fecha_ingreso: '2022-11-20',
+        fecha_salida: '2022-11-24',
+        habitacion: 1,
+        anticipo:600
+  };
+  public huespeds:Huesped[]=[];
   public hoy:string;
   public checkin: string;
-  public clave: number;
+  public clave: number=0;
 
   constructor(private auth:AuthenticationService, private huespedService:HuespedService) {
       this.token = window.localStorage.getItem('token');
-      this.huesped = this.huespedService.getHuespedToken(this.token);
-      this.clave = this.huespedService.getClaveHabitacion(this.token);
+      this.huesped = this.huespedService.huesped;
+      this.clave = this.huespedService.getClaveHabitacion(this.huesped);
    }
 
   ngOnInit() {
-    this.token = window.localStorage.getItem('token');
+    this.token = window.localStorage.getItem('id');
     this.formatDate();
     this.validateCheckIn();
   }
@@ -54,7 +63,6 @@ export class CheckinPage implements OnInit {
     if(mm<10){
       month = '0'+mm;
     }
-    this.hoy = yyyy+'-'+mm+'-'+dd;
+    this.hoy = yyyy+'-'+mm+'-'+day;
   }
-
 }

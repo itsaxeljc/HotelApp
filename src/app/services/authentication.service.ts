@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Huesped } from '../models/huesped';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   // Login básico
-  public tokens = ['admin','9895257528','1245257528'];
+  public tokens = ['admin'];
   public token = '';
+  public loggedHuesped: Huesped;
 
   constructor(
     private router: Router,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private firestore: AngularFirestore
+  ) {
+  }
 
   validarToken(token: string) {
-    this.token = token;
     if (token === this.tokens[0]) {
       this.router.navigate(['/home']);
     } 

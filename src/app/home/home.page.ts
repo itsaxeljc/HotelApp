@@ -3,6 +3,7 @@ import { Huesped } from '../models/huesped';
 import { HuespedService } from '../services/huesped.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,10 +19,12 @@ export class HomePage {
     private alertController: AlertController,
     private router: Router
   ) {
-    this.huespedes = huespedService.getHuespedes();
+    this.huespedService.getHuespedes().subscribe( res => {
+      this.huespedes = res;
+    })
   }
 
-  public async borrarHuesped(pos: number) {
+  public async borrarHuesped(id: string) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       subHeader: '¿Estás seguro que deseas eliminar el huésped?',
@@ -35,7 +38,7 @@ export class HomePage {
           text: 'Aceptar',
           role: 'confirm',
           handler: () => {
-            this.huespedes = this.huespedService.borrarHuesped(pos);
+            this.huespedService.borrarHuesped(id);
           },
         },
       ],
@@ -43,9 +46,9 @@ export class HomePage {
     await alert.present();
   }
 
-  public verHuesped(token: string) {
+  public verHuesped(id: string) {
     this.router.navigate(['/ver-huesped'], {
-      queryParams: { token: token },
+      queryParams: { id: id },
     });
   }
 

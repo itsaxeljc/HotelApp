@@ -27,7 +27,7 @@
               &nbsp; Enviar token 
             </ion-button>
             <ion-button
-              (click)="verHuesped(huesped.token)"
+              (click)="verHuesped(huesped.id)"
               slot="end"
               size="default"
               color="primary"
@@ -35,7 +35,7 @@
               <ion-icon name="search"></ion-icon>
             </ion-button>
           </ion-item>
-          <ion-item-options side="end" (ionSwipe)="borrarHuesped(i)">
+          <ion-item-options side="end" (ionSwipe)="borrarHuesped(huesped.id)">
             <ion-item-option expandable color="danger">
               <ion-icon name="trash-outline"></ion-icon>
             </ion-item-option>

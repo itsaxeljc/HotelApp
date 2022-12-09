@@ -6,4 +6,5 @@ export class Huesped {
   fecha_salida: string;
   habitacion: number;
   anticipo:number;
+  id?: string;
 }

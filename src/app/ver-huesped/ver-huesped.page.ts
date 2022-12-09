@@ -19,15 +19,27 @@ export class VerHuespedPage implements OnInit {
     private huespedService: HuespedService,
     private activatedRouteService: ActivatedRoute
     
-  ) {}
+  ) {
+    this.huesped = {
+      token: '',
+      nombre: '',
+      telefono: '',
+      fecha_ingreso: '',
+      fecha_salida: '',
+      habitacion: 0,
+      anticipo: 0
+    };
+  }
 
   ngOnInit() {
     this.activatedRouteService.queryParams.subscribe((params) => {
-      this.huesped = this.huespedService.getHuespedToken(params.token);
+      this.huespedService.getHuespedToken(params.id).subscribe( res =>{
+        this.huesped = res as Huesped;
+        this.url=" https://wa.me/"+this.countrycode+this.huesped.telefono + "?text=Gracias por reservar, aquí tiene su código de acceso: "+ this.huesped.token;
+        this.precioHabitacion = this.huespedService.getPrecioHabitacion(this.huesped);
+        this.claveHabitacion = this.huespedService.getClaveHabitacion(this.huesped);
+      })
     });
-    this.url=" https://wa.me/"+this.countrycode+this.whatsappnumber + "?text=Gracias por reservar, aquí tiene su código de acceso: "+ this.huesped.token;
-    this.precioHabitacion = this.huespedService.getPrecioHabitacion(this.huesped.token);
-    this.claveHabitacion = this.huespedService.getClaveHabitacion(this.huesped.token);
   }
   
   public formatFecha(date:string){

@@ -29,13 +29,18 @@ export class NuevoHuespedPage implements OnInit {
   public fechaIngreso: string;
   public fechaSalida: string;
   public token: string;
+  public huespeds: Huesped[];
 
   constructor(
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private router:Router
-  ) { }
+  ) { 
+    this.huespedService.getHuespedes().subscribe( res => {
+      this.huespeds = res;
+    })
+  }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -90,7 +95,8 @@ export class NuevoHuespedPage implements OnInit {
       addDays(parseISO(this.diaActual), 1),
       'yyyy-MM-dd'
     );
-
+    
+    this.fechaIngreso = this.diaSiguiente;
     this.habitaciones = this.huespedService.getHabitaciones();
     this.precioHabitaciones = this.huespedService.getPrecioHabitaciones();
     this.claveHabitaciones = this.huespedService.getClaveHabitaciones();
@@ -100,7 +106,7 @@ export class NuevoHuespedPage implements OnInit {
   public fechaSeleccionadaIngreso(evento: any): void {
     try {
       const ingreso = format(parseISO(evento.detail.value), 'yyyy-MM-dd');
-      this.fechaIngreso = format(addDays(parseISO(ingreso), 1), 'yyyy-MM-dd');
+      this.fechaIngreso = format(addDays(parseISO(ingreso), 0), 'yyyy-MM-dd');
     } catch (error) {
       console.error(error);
     }
@@ -131,6 +137,8 @@ export class NuevoHuespedPage implements OnInit {
                 anticipo: this.myForm.get('anticipo').value
               };
               this.huespedService.nuevoHuesped(this.nuevoHuesped);
+              this.huespedService.huespedes = this.huespeds;
+              console.log('EL NUEVO HUESPED-->'+this.nuevoHuesped)
               this.myForm.reset();
               this.presentAlert(
                 'Se guardó el nuevo huésped',
@@ -155,14 +163,6 @@ export class NuevoHuespedPage implements OnInit {
     }
   }
 
-  public prueba() {
-    // console.log(this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value));
-// console.log(this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida));
-console.log(this.huespedService.prueba('2022-11-21'));
-
-
-  }
-
   async presentAlert(mens: string, sub?: string) {
     const alert = await this.alertController.create({
       header: mens,
@@ -173,7 +173,6 @@ console.log(this.huespedService.prueba('2022-11-21'));
   }
 
   public precioCuarto(){
-    
     return 1
   }
 }
