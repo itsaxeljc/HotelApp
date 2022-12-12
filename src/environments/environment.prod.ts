@@ -7,4 +7,5 @@ export const environment = {
     storageBucket: "hotelapp-9201e.appspot.com",
     messagingSenderId: "833234546722",
     appId: "1:833234546722:web:66c453a650b67fb1489a7b"
+  }
 };

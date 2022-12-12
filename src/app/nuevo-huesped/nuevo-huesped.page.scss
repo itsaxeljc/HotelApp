@@ -17,3 +17,9 @@
   display: flex;
   column-gap: 20px;
 }
+
+ion-img{
+  width: 50VH;
+  height: 50VH;
+  object-fit: cover;
+}

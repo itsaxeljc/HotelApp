@@ -3,7 +3,7 @@ import { Huesped } from '../models/huesped';
 import { AuthenticationService } from './authentication.service';
 import { find, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,10 @@ export class HuespedService {
   public habitaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   public precioHabitaciones = [2300, 1200, 1500, 3100, 4000, 2500, 1300, 1300, 1300, 2000];
   public claveHabitaciones = [125478, 365214, 364128, 259436, 256478, 125946, 231524, 154758, 456325, 121236];
+  public img: string;
+  public defaultImage: string = "https://firebasestorage.googleapis.com/v0/b/hotelapp-9201e.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2ec13901-e5de-444a-bcd3-18fb3629f918";
 
-  constructor(private authService:AuthenticationService, private firestore: AngularFirestore) {
+  constructor(private authService:AuthenticationService, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.getHuespedes().subscribe( res => {
       this.huespedes = res;
     })
@@ -49,8 +51,8 @@ export class HuespedService {
     return random;
   }
 
-  public borrarHuesped(id: string) {
-    this.firestore.collection('huespeds').doc(id).delete();
+  public borrarHuesped(huesped: Huesped) {
+    this.firestore.collection('huespeds').doc(huesped.id).delete();
   }
 
   public nuevoHuesped(Huesped: Huesped) {

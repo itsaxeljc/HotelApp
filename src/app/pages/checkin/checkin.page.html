@@ -1,7 +1,7 @@
 <ion-content>
   <div class="container" *ngIf="allowed">
     <ion-card class="container">
-      <img alt="Oops" src="../../../assets/pics/Vault.gif" />
+      <img alt="Oops" [src]="huesped.photo" />
       <ion-card-header>
         <ion-card-title>{{"WELCOME" | translate}} {{huesped.nombre}} !</ion-card-title>
       </ion-card-header>
@@ -12,7 +12,7 @@
   </div>
   <div class="container" *ngIf="!allowed">
     <ion-card class="container">
-      <img alt="Welcome" src="../../../assets/pics/oops.gif" />
+      <img alt="Welcome" [src]="huesped.photo" />
       <ion-card-header>
         <ion-card-title>{{"SORRY" | translate}} {{huesped.nombre}}</ion-card-title>
       </ion-card-header>

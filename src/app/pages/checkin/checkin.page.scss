@@ -7,6 +7,9 @@
     flex-direction: column;
 
     img{
+        width: 50vh;
+        height: 50vh;
+        object-fit: cover;
         border-radius: 100%;
         margin-bottom: 5%;
     }

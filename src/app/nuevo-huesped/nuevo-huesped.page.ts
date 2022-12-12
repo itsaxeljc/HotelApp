@@ -10,6 +10,7 @@ import {
 import { AlertController } from '@ionic/angular';
 import { format, add, parseISO, addDays } from 'date-fns';
 import { Router } from '@angular/router';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-nuevo-huesped',
@@ -30,12 +31,14 @@ export class NuevoHuespedPage implements OnInit {
   public fechaSalida: string;
   public token: string;
   public huespeds: Huesped[];
+  public photo: string;
 
   constructor(
     private huespedService: HuespedService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private router:Router
+    private router:Router,
+    public photoService: PhotoService
   ) { 
     this.huespedService.getHuespedes().subscribe( res => {
       this.huespeds = res;
@@ -43,6 +46,7 @@ export class NuevoHuespedPage implements OnInit {
   }
 
   ngOnInit() {
+    this.photoService.photoURL = "https://firebasestorage.googleapis.com/v0/b/hotelapp-9201e.appspot.com/o/images%2Fdefault.jpg?alt=media&token=2ec13901-e5de-444a-bcd3-18fb3629f918";
     this.myForm = this.formBuilder.group({
       nombre: ['', Validators.compose([Validators.required])],
       telefono: [
@@ -100,7 +104,7 @@ export class NuevoHuespedPage implements OnInit {
     this.habitaciones = this.huespedService.getHabitaciones();
     this.precioHabitaciones = this.huespedService.getPrecioHabitaciones();
     this.claveHabitaciones = this.huespedService.getClaveHabitaciones();
-
+    this.token = this.huespedService.crearToken();
   }
 
   public fechaSeleccionadaIngreso(evento: any): void {
@@ -126,7 +130,6 @@ export class NuevoHuespedPage implements OnInit {
         if (this.fechaSalida !== undefined) {
           if (this.huespedService.validarFecha(this.fechaIngreso, this.fechaSalida)) {
             if (this.huespedService.validRoomHuesped(this.fechaIngreso, this.myForm.get('habitacion').value)) {
-              this.token = this.huespedService.crearToken();
               this.nuevoHuesped = {
                 nombre: this.myForm.get('nombre').value,
                 telefono: this.myForm.get('telefono').value,
@@ -134,7 +137,8 @@ export class NuevoHuespedPage implements OnInit {
                 fecha_ingreso: this.fechaIngreso,
                 fecha_salida: this.fechaSalida,
                 token: this.token,
-                anticipo: this.myForm.get('anticipo').value
+                anticipo: this.myForm.get('anticipo').value,
+                photo: this.photoService.photoURL
               };
               this.huespedService.nuevoHuesped(this.nuevoHuesped);
               this.huespedService.huespedes = this.huespeds;
@@ -175,4 +179,10 @@ export class NuevoHuespedPage implements OnInit {
   public precioCuarto(){
     return 1
   }
+
+  public addPicture(){
+    this.photoService.takePicture(this.token);
+  }
+  
+
 }

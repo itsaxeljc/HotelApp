@@ -7,4 +7,5 @@ export class Huesped {
   habitacion: number;
   anticipo:number;
   id?: string;
+  photo?:string;
 }

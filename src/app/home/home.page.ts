@@ -24,7 +24,7 @@ export class HomePage {
     })
   }
 
-  public async borrarHuesped(id: string) {
+  public async borrarHuesped(huesped: Huesped) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       subHeader: '¿Estás seguro que deseas eliminar el huésped?',
@@ -38,7 +38,7 @@ export class HomePage {
           text: 'Aceptar',
           role: 'confirm',
           handler: () => {
-            this.huespedService.borrarHuesped(id);
+            this.huespedService.borrarHuesped(huesped);
           },
         },
       ],

@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 export function HttpLoaderFactory(httpClient: HttpClient){
   return new TranslateHttpLoader(httpClient,'../assets/i18n/','.json')
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(httpClient: HttpClient){
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
